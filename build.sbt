@@ -1,7 +1,7 @@
-val gigurra_service_utils = Project(id = "gigurra-service-utils", base = file("."))
+val service_utils = Project(id = "service-utils", base = file("."))
   .settings(
     organization := "se.gigurra",
-    version := scala.util.Properties.envOrElse("GIGURRA_SERVICE_UTILS_VERSION", "SNAPSHOT"),
+    version := scala.util.Properties.envOrElse("SERVICE_UTILS_VERSION", "SNAPSHOT"),
 
     scalaVersion := "2.11.7",
     scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation"),
