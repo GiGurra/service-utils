@@ -29,6 +29,6 @@ case class ExceptionFilter[T <: Throwable: ClassTag]()
 
   def transformToResponse(e: T, bug: Boolean): Future[Response] = {
     logger.error(e, s"Caught an ${implicitly[ClassTag[T]].runtimeClass} ${if (bug) "this should not happen!" else ""}")
-    Future.value(internalServerError(e.getMessage))
+    Future.value(internalServerError(e.getMessage).response)
   }
 }
