@@ -57,4 +57,34 @@ trait ServiceErrors extends Logging {
     Future.exception(conflict(message, exc))
   }
 
+  def timeout(message: String, exc: Throwable = null): ServiceException = {
+    val msg = s"Timeout in service '$serviceName' (exception/cause = $exc): $message"
+    logger.warning(msg)
+    ServiceException(Responses.timeout(msg))
+  }
+
+  def Timeout[T](message: String, exc: Throwable = null): Future[T] = {
+    Future.exception(timeout(message, exc))
+  }
+
+  def tooManyRequests(message: String, exc: Throwable = null): ServiceException = {
+    val msg = s"Too many requests in service '$serviceName' (exception/cause = $exc): $message"
+    logger.warning(msg)
+    ServiceException(Responses.tooManyRequests(msg))
+  }
+
+  def TooManyRequests[T](message: String, exc: Throwable = null): Future[T] = {
+    Future.exception(tooManyRequests(message, exc))
+  }
+
+  def unavailable(message: String, exc: Throwable = null): ServiceException = {
+    val msg = s"Service unavailable in service '$serviceName' (exception/cause = $exc): $message"
+    logger.warning(msg)
+    ServiceException(Responses.unavailable(msg))
+  }
+
+  def Unavailable[T](message: String, exc: Throwable = null): Future[T] = {
+    Future.exception(unavailable(message, exc))
+  }
+
 }

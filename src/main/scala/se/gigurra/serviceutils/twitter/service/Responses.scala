@@ -58,6 +58,21 @@ object Responses {
         apply(json, http.Status.NotFound, httpVersion)
       }
 
+      def timeout(json: JValue,
+                   httpVersion: http.Version = http.Version.Http11): http.Response = {
+        apply(json, http.Status.GatewayTimeout, httpVersion)
+      }
+
+      def tooManyRequests(json: JValue,
+                          httpVersion: http.Version = http.Version.Http11): http.Response = {
+        apply(json, http.Status.TooManyRequests, httpVersion)
+      }
+
+      def unavailable(json: JValue,
+                      httpVersion: http.Version = http.Version.Http11): http.Response = {
+        apply(json, http.Status.ServiceUnavailable, httpVersion)
+      }
+
       def conflict(json: JValue,
                    httpVersion: http.Version = http.Version.Http11): http.Response = {
         apply(json, http.Status.Conflict, httpVersion)
@@ -183,6 +198,21 @@ object Responses {
     json.jval.notFound(json.message(message), httpVersion)
   }
 
+  def timeout(message: Message = "",
+              httpVersion: http.Version = http.Version.Http11): http.Response = {
+    json.jval.timeout(json.message(message), httpVersion)
+  }
+
+  def tooManyRequests(message: Message = "",
+                      httpVersion: http.Version = http.Version.Http11): http.Response = {
+    json.jval.tooManyRequests(json.message(message), httpVersion)
+  }
+
+  def unavailable(message: Message = "",
+                  httpVersion: http.Version = http.Version.Http11): http.Response = {
+    json.jval.unavailable(json.message(message), httpVersion)
+  }
+
   def conflict(message: Message = "",
                httpVersion: http.Version = http.Version.Http11): http.Response = {
     json.jval.conflict(json.message(message), httpVersion)
@@ -211,6 +241,21 @@ object Responses {
   def NotFound(message: Message = "",
                httpVersion: http.Version = http.Version.Http11): Future[http.Response] = {
     Future.value(notFound(message, httpVersion))
+  }
+
+  def TimeOut(message: Message = "",
+               httpVersion: http.Version = http.Version.Http11): Future[http.Response] = {
+    Future.value(timeout(message, httpVersion))
+  }
+
+  def TooManyRequests(message: Message = "",
+                      httpVersion: http.Version = http.Version.Http11): Future[http.Response] = {
+    Future.value(tooManyRequests(message, httpVersion))
+  }
+
+  def Unavailable(message: Message = "",
+                  httpVersion: http.Version = http.Version.Http11): Future[http.Response] = {
+    Future.value(unavailable(message, httpVersion))
   }
 
   def Conflict(message: Message = "",
