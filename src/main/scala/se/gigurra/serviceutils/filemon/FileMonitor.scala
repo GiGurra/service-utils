@@ -65,7 +65,7 @@ case class FileMonitor(path: Path,
 
 object FileMonitor {
 
-  def apply(path: Path,
+  def apply(relPath: Path,
             pollTimeMillis: Long = 100,
             interestEvents: Seq[WatchEvent.Kind[Path]] = Seq(
               StandardWatchEventKinds.ENTRY_CREATE,
@@ -73,6 +73,8 @@ object FileMonitor {
               StandardWatchEventKinds.ENTRY_DELETE
             ),
             isDaemon: Boolean = true)(handler: (FileMonitor, WatchEvent[_]) => Unit): FileMonitor = {
+
+    val path = relPath.toAbsolutePath
 
     if (path.toFile.isFile) {
       val file = path.toFile
@@ -84,9 +86,9 @@ object FileMonitor {
     }
   }
 
-  /*
+/*
   def main(args: Array[String]): Unit = {
-    FileMonitor(new File("C:\\gt\\dcs-remote2\\static-data.json").toPath) { (_, event) =>
+    FileMonitor(new java.io.File("C:\\gt\\dcs-remote2\\static-data.json").toPath) { (_, event) =>
       event.kind() match {
         case StandardWatchEventKinds.ENTRY_CREATE =>
           println(s"ENTRY_CREATE ${event.context()}")
