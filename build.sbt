@@ -7,7 +7,7 @@ val service_utils = Project(id = "service-utils", base = file("."))
     scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation"),
 
     libraryDependencies ++= Seq(
-      "com.twitter"       %%  "finagle-http"    %   "6.31.0",
+      "com.twitter"       %%  "finagle-http"    %   "6.34.0",
       "org.json4s"        %%  "json4s-core"     %   "3.3.0",
       "org.json4s"        %%  "json4s-jackson"  %   "3.3.0",
       "org.scalatest"     %%  "scalatest"       %   "2.2.4"     %   "test",
