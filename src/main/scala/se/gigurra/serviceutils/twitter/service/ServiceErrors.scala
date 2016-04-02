@@ -2,14 +2,18 @@ package se.gigurra.serviceutils.twitter.service
 
 import com.twitter.util.Future
 import se.gigurra.serviceutils.twitter.logging.Logging
+import se.gigurra.serviceutils.twitter.service.ServiceErrors.{AutoLoggingOff, AutoLoggingOn}
 
 trait ServiceErrors extends Logging {
+
+  def autoLog: Boolean
 
   def serviceName: String = getClass.getSimpleName
 
   def badRequest(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Bad Request to service '$serviceName' (exception/cause = $exc): $message"
-    logger.error(msg)
+    if (autoLog)
+      logger.error(msg)
     ServiceException(Responses.badRequest(msg))
   }
 
@@ -19,7 +23,8 @@ trait ServiceErrors extends Logging {
 
   def unauthorized(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Unauthorized request to service '$serviceName' (exception/cause = $exc): $message"
-    logger.warning(msg)
+    if (autoLog)
+      logger.warning(msg)
     ServiceException(Responses.unauthorized(msg))
   }
 
@@ -29,7 +34,8 @@ trait ServiceErrors extends Logging {
 
   def internalServerError(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Internal Server Error in service '$serviceName' (exception/cause = $exc): $message"
-    logger.error(new RuntimeException(msg, exc), msg)
+    if (autoLog)
+      logger.error(new RuntimeException(msg, exc), msg)
     ServiceException(Responses.internalServerError(msg))
   }
 
@@ -39,7 +45,8 @@ trait ServiceErrors extends Logging {
 
   def notFound(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Not Found in service service '$serviceName' (exception/cause = $exc): $message"
-    logger.warning(msg)
+    if (autoLog)
+      logger.warning(msg)
     ServiceException(Responses.notFound(msg))
   }
 
@@ -49,7 +56,8 @@ trait ServiceErrors extends Logging {
 
   def conflict(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Conflict in service '$serviceName' (exception/cause = $exc): $message"
-    logger.warning(msg)
+    if (autoLog)
+      logger.warning(msg)
     ServiceException(Responses.conflict(msg))
   }
 
@@ -59,7 +67,8 @@ trait ServiceErrors extends Logging {
 
   def timeout(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Timeout in service '$serviceName' (exception/cause = $exc): $message"
-    logger.warning(msg)
+    if (autoLog)
+      logger.warning(msg)
     ServiceException(Responses.timeout(msg))
   }
 
@@ -69,7 +78,8 @@ trait ServiceErrors extends Logging {
 
   def tooManyRequests(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Too many requests in service '$serviceName' (exception/cause = $exc): $message"
-    logger.warning(msg)
+    if (autoLog)
+      logger.warning(msg)
     ServiceException(Responses.tooManyRequests(msg))
   }
 
@@ -79,12 +89,27 @@ trait ServiceErrors extends Logging {
 
   def unavailable(message: String, exc: Throwable = null): ServiceException = {
     val msg = s"Service unavailable in service '$serviceName' (exception/cause = $exc): $message"
-    logger.warning(msg)
+    if (autoLog)
+      logger.warning(msg)
     ServiceException(Responses.unavailable(msg))
   }
 
   def Unavailable[T](message: String, exc: Throwable = null): Future[T] = {
     Future.exception(unavailable(message, exc))
+  }
+
+}
+
+trait ServiceErrorsWithoutAutoLogging extends ServiceErrors with AutoLoggingOff
+trait ServiceErrorsWithAutoLogging extends ServiceErrors with AutoLoggingOn
+
+object ServiceErrors {
+
+  trait AutoLoggingOff { _ : ServiceErrors =>
+    def autoLog = false
+  }
+  trait AutoLoggingOn { _ : ServiceErrors =>
+    def autoLog = true
   }
 
 }
