@@ -17,4 +17,4 @@ val service_utils = Project(id = "service-utils", base = file("."))
     resolvers += "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/"
 
   )
-  .dependsOn(uri("git://github.com/GiGurra/franklin-heisenberg-bridge.git#0.1.16"))
+  .dependsOn(uri("git://github.com/GiGurra/franklin-heisenberg-bridge.git#0.1.19"))
