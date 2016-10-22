@@ -1,10 +1,10 @@
 package se.gigurra.serviceutils.twitter.store
 
 import com.twitter.util.Future
-import se.gigurra.franklin.{IndicesWiper, ItemsWiper, YeahReally}
-import se.gigurra.franklinheisenberg.FHCollection.SelectStatement
-import se.gigurra.franklinheisenberg.{FHCollection, Versioned}
-import se.gigurra.heisenberg._
+import com.github.gigurra.franklin.{IndicesWiper, ItemsWiper, YeahReally}
+import com.github.gigurra.franklinheisenberg.FHCollection.SelectStatement
+import com.github.gigurra.franklinheisenberg.{FHCollection, Versioned}
+import com.github.gigurra.heisenberg._
 import se.gigurra.serviceutils.twitter.future.TwitterFutures._
 import se.gigurra.serviceutils.twitter.logging.Logging
 

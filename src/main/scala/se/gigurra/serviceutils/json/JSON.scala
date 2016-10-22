@@ -3,7 +3,7 @@ package se.gigurra.serviceutils.json
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import org.json4s.jackson._
-import se.gigurra.heisenberg.{MapDataParser, MapDataProducer, MapParser, MapProducer}
+import com.github.gigurra.heisenberg.{MapDataParser, MapDataProducer, MapParser, MapProducer}
 
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe._

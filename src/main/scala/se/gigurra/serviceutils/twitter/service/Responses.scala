@@ -5,7 +5,7 @@ import java.nio.charset.Charset
 import com.twitter.finagle.http
 import com.twitter.util.Future
 import org.json4s.JsonAST.JValue
-import se.gigurra.heisenberg.{MapDataProducer, MapProducer}
+import com.github.gigurra.heisenberg.{MapDataProducer, MapProducer}
 import se.gigurra.serviceutils.json.JSON
 
 object Responses {

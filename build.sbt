@@ -1,20 +1,20 @@
 val service_utils = Project(id = "service-utils", base = file("."))
   .settings(
     organization := "se.gigurra",
-    version := scala.util.Properties.envOrElse("SERVICE_UTILS_VERSION", "SNAPSHOT"),
+    version := "0.1.13-SNAPSHOT",
 
-    scalaVersion := "2.11.7",
+    scalaVersion := "2.11.8",
     scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation"),
 
     libraryDependencies ++= Seq(
-      "com.twitter"       %%  "finagle-http"    %   "6.34.0",
-      "org.json4s"        %%  "json4s-core"     %   "3.3.0",
-      "org.json4s"        %%  "json4s-jackson"  %   "3.3.0",
-      "org.scalatest"     %%  "scalatest"       %   "2.2.4"     %   "test",
-      "org.mockito"       %   "mockito-core"    %   "1.10.19"   %   "test"
+      "com.twitter"         %%  "finagle-http"                %   "6.38.0",
+      "org.json4s"          %%  "json4s-core"                 %   "3.4.0",
+      "org.json4s"          %%  "json4s-jackson"              %   "3.4.0",
+      "com.github.gigurra"  %%  "franklin-heisenberg-bridge"  %   "0.1.20-SNAPSHOT",
+      "org.scalatest"       %%  "scalatest"                   %   "2.2.4"           %   "test",
+      "org.mockito"         %   "mockito-core"                %   "1.10.19"         %   "test"
     ),
 
-    resolvers += "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/"
-
+    resolvers += "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/",
+    resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   )
-  .dependsOn(uri("git://github.com/GiGurra/franklin-heisenberg-bridge.git#0.1.19"))
