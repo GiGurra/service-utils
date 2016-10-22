@@ -15,5 +15,6 @@ val service_utils = Project(id = "service-utils", base = file("."))
       "org.mockito"         %   "mockito-core"                %   "1.10.19"         %   "test"
     ),
 
-    resolvers += "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/"
+    resolvers += "Typesafe Releases" at "https://repo.typesafe.com/typesafe/releases/",
+    pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toArray)
   )
