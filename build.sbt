@@ -1,7 +1,7 @@
 val service_utils = Project(id = "service-utils", base = file("."))
   .settings(
     organization := "com.github.gigurra",
-    version := "0.1.13-SNAPSHOT",
+    version := "0.1.14-SNAPSHOT",
 
     scalaVersion := "2.11.8",
     scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation"),
